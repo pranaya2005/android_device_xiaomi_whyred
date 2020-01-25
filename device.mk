@@ -358,6 +358,10 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libstagefrighthw
 
+# Pixel charger
+PRODUCT_PACKAGES += \
+    product_charger_res_images
+
 # Power
 PRODUCT_PACKAGES += \
     android.hardware.power@1.2-service-qti
