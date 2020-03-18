@@ -22,6 +22,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_n_mr1.mk
 # Inherit some common Lineage stuff
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
+# Inherit from custom vendor
+$(call inherit-product-if-exists, vendor/MiuiCamera/config.mk)
+
 # Inherit from whyred device
 $(call inherit-product, $(LOCAL_PATH)/device.mk)
 

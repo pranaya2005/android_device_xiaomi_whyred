@@ -1,2 +1,8 @@
 [
+  {
+    "remote": "github",
+    "repository": "fakeyatogod/MiuiCamera",
+    "branch": "cr-8.0",
+    "target_path": "vendor/MiuiCamera"
+  }
 ]
