@@ -91,6 +91,10 @@ on post-fs-data
 on property:sys.camera.face.unlock=*
     setprop vendor.camera.face.unlock ${sys.camera.face.unlock}
 
+# MIUI camera flag
+on property:sys.camera.miui.apk=*
+    setprop vendor.camera.miui.apk ${sys.camera.miui.apk}
+
 # Use Redmi Note 5 Pro camera watermark on Indian variant
 on property:ro.boot.hwc=India
     mount none /vendor/etc/MIUI_DualCamera_watermark_in.png /vendor/etc/MIUI_DualCamera_watermark.png bind
