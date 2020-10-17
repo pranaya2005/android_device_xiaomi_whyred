@@ -17,7 +17,7 @@
 
 set -e
 
-DEVICE_COMMON=sdm660-common
+DEVICE=whyred
 VENDOR=xiaomi
 
 # Load extract_utils and do some sanity checks
@@ -61,9 +61,16 @@ fi
 
 function blob_fixup() {
     case "${1}" in
-
     vendor/bin/mlipayd@1.1)
         patchelf --remove-needed vendor.xiaomi.hardware.mtdservice@1.0.so "${2}"
+        ;;
+
+    vendor/lib/hw/camera.sdm660.so)
+        patchelf --add-needed camera.sdm660_shim.so "${2}"
+        ;;
+
+    vendor/lib64/libgf_ca.so)
+        sed -i "s|/system/etc/firmware|/vendor/firmware\x0\x0\x0\x0|g" "${2}"
         ;;
 
     vendor/lib64/libmlipay.so | vendor/lib64/libmlipay@1.1.so)
@@ -73,26 +80,10 @@ function blob_fixup() {
     esac
 }
 
-# Initialize the common helper
-setup_vendor "$DEVICE_COMMON" "$VENDOR" "$LINEAGE_ROOT" true $CLEAN_VENDOR
+# Initialize the helper
+setup_vendor "$DEVICE" "$VENDOR" "$LINEAGE_ROOT" false "$CLEAN_VENDOR"
 
 extract "$MY_DIR"/proprietary-files.txt "$SRC" \
     "${KANG}" --section "${SECTION}"
-extract "$MY_DIR"/proprietary-files-fm.txt "$SRC" \
-    "${KANG}" --section "${SECTION}"
-
-if [ -s "$MY_DIR"/../$DEVICE_SPECIFIED_COMMON/proprietary-files.txt ];then
-    # Reinitialize the helper for device specified common
-    setup_vendor "$DEVICE_SPECIFIED_COMMON" "$VENDOR" "$LINEAGE_ROOT" false "$CLEAN_VENDOR"
-    extract "$MY_DIR"/../$DEVICE_SPECIFIED_COMMON/proprietary-files.txt "$SRC" \
-    "${KANG}" --section "${SECTION}"
-fi
-
-if [ -s "$MY_DIR"/../$DEVICE/proprietary-files.txt ]; then
-    # Reinitialize the helper for device
-    setup_vendor "$DEVICE" "$VENDOR" "$LINEAGE_ROOT" false "$CLEAN_VENDOR"
-    extract "$MY_DIR"/../$DEVICE/proprietary-files.txt "$SRC" \
-    "${KANG}" --section "${SECTION}"
-fi
 
 "$MY_DIR"/setup-makefiles.sh
