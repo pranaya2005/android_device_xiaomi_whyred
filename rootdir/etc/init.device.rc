@@ -90,3 +90,7 @@ on post-fs-data
 # Workaround for camera HAL can not read sys property
 on property:sys.camera.face.unlock=*
     setprop vendor.camera.face.unlock ${sys.camera.face.unlock}
+
+# Use Redmi Note 5 Pro camera watermark on Indian variant
+on property:ro.boot.hwc=India
+    mount none /vendor/etc/MIUI_DualCamera_watermark_in.png /vendor/etc/MIUI_DualCamera_watermark.png bind
