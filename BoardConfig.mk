@@ -149,9 +149,9 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := default
 LOC_HIDL_VERSION := 3.0
 
 # HIDL
-DEVICE_FRAMEWORK_MANIFEST_FILE := $(DEVICE_PATH)/configs/manifests/framework_manifest.xml
-DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/configs/manifests/manifest.xml
-DEVICE_MATRIX_FILE := $(DEVICE_PATH)/configs/manifests/compatibility_matrix.xml
+DEVICE_FRAMEWORK_MANIFEST_FILE := $(DEVICE_PATH)/configs/vintf/framework_manifest.xml
+DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/configs/vintf/manifest.xml
+DEVICE_MATRIX_FILE := $(DEVICE_PATH)/configs/vintf/compatibility_matrix.xml
 
 # Init
 TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_whyred
@@ -181,7 +181,7 @@ TARGET_COPY_OUT_VENDOR := vendor
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
-TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/config.fs
+TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/configs/config.fs
 
 # Power
 TARGET_USES_INTERACTION_BOOST := true
